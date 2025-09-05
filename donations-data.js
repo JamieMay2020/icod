@@ -2,19 +2,18 @@
 const MANUAL_DONATIONS_DATA = [
     // Most recent donations at the top
     // Copy this template and add new entries as rounds complete:
-    /*
+
     {
-        roundNumber: 5,
-        date: "Jan 16, 2025",
-        charityName: "Charity Name Here",
-        amount: 0,
-        votes: 0,
-        totalVotes: 0,
-        duration: 5, // minutes
-        tweetUrl: "",
-        transactionSignature: ""
+        roundNumber: 1,
+        date: "09/05/2025",
+        charityName: "One Earth",
+        amount: 300$,
+        votes: 64,
+        totalVotes: 102,
+        duration: 10
+        tweetUrl: "https://x.com/IDOCharity/status/1964089658402324629",
+        transactionSignature: "https://solscan.io/tx/5gM6NB8CRLzk2yhppm6pbK7o2NyAvMHamLZm9Mfo3YJNRf8FpG5ZmVQxtMJyi4NaEA7RvAgAp9PGkDrfuTryU6GF"
     },
-    */
     
     // Example entries - Replace with real data as rounds complete
    
@@ -196,4 +195,5 @@ console.log("To add a new donation after round ends:");
 console.log("1. Copy this template:");
 console.log(getNewDonationTemplate(5)); // Update with next round number
 console.log("2. Fill in the actual values");
+
 console.log("3. Add to top of MANUAL_DONATIONS_DATA array");
