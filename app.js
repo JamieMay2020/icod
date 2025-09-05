@@ -45,7 +45,6 @@ function showNoRoundState() {
                 <h3 style="color: var(--ink); margin-bottom: 20px;">No Active Round</h3>
                 <p>Voting will begin soon. Please check back later!</p>
                 <p style="margin-top: 10px; font-size: 14px; opacity: 0.7;">
-                    Admin: Run startFirstRound() in console to begin
                 </p>
             </div>
         `;
@@ -431,4 +430,5 @@ window.addEventListener('beforeunload', () => {
     if (votesUnsubscribe) votesUnsubscribe();
     if (roundUnsubscribe) roundUnsubscribe();
     if (timerInterval) clearInterval(timerInterval);
+
 });
