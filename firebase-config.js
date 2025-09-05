@@ -282,13 +282,7 @@ async function initializeSampleData() {
             website: 'https://www.savethechildren.org/',
             category: 'Children'
         },
-        {
-            name: 'St. Jude Children\'s Research Hospital',
-            description: 'Leads in pediatric cancer research and offers free treatment for children.',
-            region: 'Global',
-            website: 'https://www.stjude.org/donate/donate-to-st-jude.html',
-            category: 'Health'
-        },
+
         {
             name: 'WaterAid',
             description: 'Brings clean water, sanitation, and hygiene to underserved communities.',
@@ -296,20 +290,7 @@ async function initializeSampleData() {
             website: 'https://www.wateraid.org/',
             category: 'Water & Sanitation'
         },
-        {
-            name: 'Dogs for Better Lives',
-            description: 'Trains service dogs to assist people with disabilities and improve quality of life.',
-            region: 'Global',
-            website: 'https://dogsforbetterlives.org/crypto',
-            category: 'Animals'
-        },
-        {
-            name: 'Habitat for Humanity',
-            description: 'Builds affordable housing and helps families achieve homeownership.',
-            region: 'Global',
-            website: 'https://www.habitat.org/',
-            category: 'Housing'
-        },
+
         {
             name: 'Children\'s Cancer Cause',
             description: 'Advocates for research, treatment, and policy support for children with cancer.',
@@ -317,20 +298,8 @@ async function initializeSampleData() {
             website: 'https://www.childrenscancercause.org/',
             category: 'Health'
         },
-        {
-            name: 'Heavenly Pets',
-            description: 'Focuses on the welfare and adoption of pets in need.',
-            region: 'Global',
-            website: 'https://www.heavenlypets.org/',
-            category: 'Animals'
-        },
-        {
-            name: 'Oceanic Society',
-            description: 'Works to protect oceans through conservation programs and education.',
-            region: 'Global',
-            website: 'https://www.oceanicsociety.org/donate',
-            category: 'Environment'
-        },
+
+
         {
             name: 'One Earth',
             description: 'Promotes climate solutions and biodiversity conservation for a sustainable future.',
