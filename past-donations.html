@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Past Donations</title>
+  <style>
+    /* ===========================
+       Global + Theme Variables
+       =========================== */
+    :root{
+      /* Metallic silver palette */
+      --silver-100:#f2f4f6;
+      --silver-200:#e3e7eb;
+      --silver-300:#cfd6dc;
+      --silver-400:#b7c0c8;
+      --silver-500:#9aa5b1;
+      --silver-600:#7c8794;
+      --silver-700:#616b75;
+      --silver-800:#4c5560;
+      --silver-900:#3b434c;
+
+      /* Text on dark */
+      --ink:#eef1f4;
+      --muted:#b8c0ca;
+
+      /* Lines / outlines */
+      --line:#3d4550;
+
+      /* Metallic gradients */
+      --silver-grad: linear-gradient(135deg, #bfc7cf 0%, #eef1f4 50%, #9aa5b1 100%);
+
+      /* Backgrounds */
+      --bg-gradient:
+        radial-gradient(1200px 600px at 70% -10%, rgba(120,205,255,.06) 0%, rgba(120,205,255,0) 60%),
+        linear-gradient(145deg, #0e1218 0%, #121826 35%, #0a0f19 70%, #0d1119 100%);
+      --card: rgba(18, 22, 32, .85);
+
+      /* Accents (cool cyan glow complements silver) */
+      --glow: rgba(120, 205, 255, .25);
+      --glow-strong: rgba(120, 205, 255, .45);
+
+      --radius: 14px;
+      --ring: 0 1px 0 rgba(255,255,255,.03), 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    /* ===========================
+       Reset & Base
+       =========================== */
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height:1.6;
+      color:var(--ink);
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+    /* ===========================
+       Header / Nav
+       =========================== */
+    header{
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      background:rgba(14,18,24,.72);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+      box-shadow:0 2px 20px rgba(0,0,0,.35);
+    }
+    nav{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:20px 0;position:relative;gap:16px
+    }
+
+    .logo{
+      font-size:24px;font-weight:800;color:var(--ink);text-decoration:none;
+      display:flex;align-items:center;gap:12px;
+      transition:transform .3s ease
+    }
+    .logo:hover{transform:translateX(4px)}
+    .logo img{width:40px;height:40px;border-radius:50%}
+
+    .nav-left,.nav-right{display:flex;align-items:center;gap:32px;flex:1}
+    .nav-right{justify-content:flex-end}
+
+    .nav-links{display:flex;list-style:none;gap:32px}
+    .nav-links a{
+      color:var(--muted);text-decoration:none;font-weight:600;position:relative;
+      padding:8px 6px;border-radius:8px;transition:color .2s ease, background .2s ease
+    }
+    .nav-links a::after{
+      content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;
+      background:var(--silver-grad);transition:width .25s ease
+    }
+    .nav-links a:hover{color:#eaf2ff;background:rgba(120,205,255,.06)}
+    .nav-links a:hover::after{width:100%}
+    .nav-links a.active{color:#ffffff}
+    .nav-links a.active::after{width:100%}
+
+    /* Timer centered in nav */
+    .timer-container{
+      position:absolute;left:50%;transform:translateX(-50%);
+      background: rgba(20, 26, 36, .85);
+      border:1px solid var(--silver-700);
+      padding:10px 28px;border-radius:999px;
+      font-weight:800;font-size:18px;color:#f6f8fb;min-width:220px;text-align:center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 6px 22px rgba(0,0,0,.35);
+    }
+    .timer-container.warning{background:rgba(40,40,10,.6);border-color:#8b8b56;color:#f1f1cf}
+    .timer-container.urgent{background:rgba(48,16,16,.65);border-color:#a26a6a;color:#ffecec}
+
+    /* ===========================
+       Page Header
+       =========================== */
+    .page-header{
+      padding:140px 0 60px;
+      background: linear-gradient(180deg, rgba(16,22,33,.65) 0%, rgba(12,18,28,0) 100%);
+      border-bottom:1px solid var(--line);
+    }
+    .page-title{
+      font-size:48px;font-weight:900;color:#f6f8fb;text-align:center;margin-bottom:16px
+    }
+    .page-subtitle{
+      font-size:18px;color:var(--muted);text-align:center;max-width:640px;margin:0 auto
+    }
+
+    /* ===========================
+       Explanation Section
+       =========================== */
+    .explanation-section{padding:60px 0;background:transparent}
+    .explanation-content{max-width:800px;margin:0 auto;text-align:center}
+    .explanation-title{
+      font-size:28px;font-weight:900;color:#e7edf6;margin-bottom:20px
+    }
+    .explanation-text{color:var(--muted);line-height:1.8;margin-bottom:18px}
+
+    .process-grid{
+      display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:24px;margin-top:40px;padding:24px;background:rgba(16,22,33,.6);border-radius:12px;
+      border:1px solid var(--silver-800)
+    }
+    .process-item{text-align:center}
+    .process-number{
+      display:inline-grid;place-items:center;width:44px;height:44px;border-radius:10px;margin-bottom:10px;
+      font-weight:900;color:#0f131b;background:var(--silver-grad);border:1px solid var(--silver-700);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.6)
+    }
+    .process-text{color:var(--muted);font-size:14px}
+
+    /* ===========================
+       Stats Summary
+       =========================== */
+    .stats-summary{padding:40px 0;background:transparent;margin-bottom:40px}
+    .stats-grid{
+      display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:24px;text-align:center
+    }
+    .stat-card{
+      background: rgba(16,22,33,.7);
+      padding:24px;border-radius:14px;border:1px solid var(--silver-700);box-shadow:var(--ring)
+    }
+    .stat-value{
+      font-size:32px;font-weight:900;background:var(--silver-grad);
+      -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:6px
+    }
+    .stat-label{
+      color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:1px
+    }
+
+    /* ===========================
+       Donation History
+       =========================== */
+    .donations-section{padding:60px 0;background:transparent}
+    .section-title{
+      font-size:32px;font-weight:900;color:#eef3f9;text-align:center;margin-bottom:36px;
+      position:relative
+    }
+    .section-title::after{
+      content:"";position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);
+      width:60px;height:3px;background:var(--silver-grad);border-radius:2px
+    }
+
+    .filters{
+      display:flex;justify-content:center;gap:12px;margin-bottom:32px;flex-wrap:wrap
+    }
+    .filter-btn{
+      padding:8px 18px;background:rgba(16,22,33,.6);border:1px solid var(--silver-700);
+      border-radius:999px;color:#dfe6ee;cursor:pointer;transition:all .2s ease;font-size:14px;font-weight:700
+    }
+    .filter-btn:hover{border-color:var(--silver-500);box-shadow:0 8px 20px var(--glow)}
+    .filter-btn.active{background:var(--silver-grad);color:#0e141c;border-color:var(--silver-500)}
+
+    .donations-list{max-width:900px;margin:0 auto}
+
+    .donation-item{
+      background: rgba(14,20,30,.8);
+      border:1px solid var(--silver-700);
+      border-radius:14px;padding:22px;margin-bottom:18px;
+      display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;
+      transition:border-color .2s ease, transform .2s ease;box-shadow:var(--ring)
+    }
+    .donation-item:hover{border-color:var(--silver-500);transform:translateY(-2px)}
+
+    .round-badge{
+      background: rgba(16,22,33,.65);
+      padding:10px 14px;border-radius:12px;font-weight:800;color:#eaf0f7;text-align:center;
+      border:1px solid var(--silver-700);min-width:120px
+    }
+    .round-number{font-size:18px}
+    .round-date{font-size:12px;color:var(--muted);margin-top:4px}
+
+    .donation-details{flex:1}
+    .charity-winner{font-size:20px;font-weight:900;color:#eef3f9;margin-bottom:6px}
+    .donation-stats{display:flex;gap:18px;color:var(--muted);font-size:14px;margin-bottom:6px;flex-wrap:wrap}
+
+    .donation-amount{
+      font-size:24px;font-weight:900;background:var(--silver-grad);
+      -webkit-background-clip:text;background-clip:text;color:transparent;text-align:right;margin-bottom:8px
+    }
+
+    .proof-links{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+    .proof-link{
+      padding:8px 16px;background:var(--silver-grad);color:#0e141c;text-decoration:none;border-radius:10px;
+      font-size:14px;font-weight:900;border:1px solid var(--silver-700);
+      transition:transform .12s ease, box-shadow .2s ease;
+      display:inline-block;text-align:center;
+    }
+    .proof-link:hover{transform:translateY(-1px);box-shadow:0 12px 26px var(--glow-strong)}
+    .proof-link.secondary{
+      background:transparent;color:#e7edf6;border:1px solid var(--silver-600)
+    }
+    .proof-link.secondary:hover{background:rgba(255,255,255,.06)}
+
+    /* ===========================
+       Load More
+       =========================== */
+    .load-more{text-align:center;margin-top:34px}
+    .load-more-btn{
+      padding:12px 28px;background:transparent;border:1px solid var(--silver-600);
+      border-radius:999px;color:#e7edf6;font-weight:900;cursor:pointer;transition:all .2s ease
+    }
+    .load-more-btn:hover{background:rgba(255,255,255,.06);box-shadow:0 10px 26px var(--glow)}
+
+    /* ===========================
+       Footer
+       =========================== */
+    footer{
+      padding:40px 0;background:#0b1018;text-align:center;color:#e5ebf2;
+      border-top:1px solid var(--line);position:relative;overflow:hidden
+    }
+    footer::before{
+      content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--silver-grad);
+      background-size:200% 100%;
+      animation: shimmer 3s ease infinite;
+    }
+    footer p{margin-bottom:10px;opacity:.9}
+    footer p:last-child{font-size:14px;opacity:.75}
+
+    /* Utility animation for footer bar */
+    @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+    /* ===========================
+       Mobile
+       =========================== */
+    @media (max-width: 768px){
+      .nav-left,.nav-right{display:none}
+      .timer-container{font-size:15px;padding:8px 18px;min-width:180px}
+      .page-title{font-size:34px}
+      .donation-item{grid-template-columns:1fr;gap:16px}
+      .proof-links{align-items:stretch}
+      .stats-grid{grid-template-columns:1fr}
+      .process-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <div class="nav-left">
+        <a href="index.html" class="logo">
+          <img src="coin.png" alt="IDC Logo">
+          IDOC
+        </a>
+      </div>
+
+
+
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="past-donations.html" class="active">Past Donations</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">Past Donations</h1>
+        <p class="page-subtitle">Complete transparency. Every donation tracked, verified, and celebrated.</p>
+      </div>
+    </section>
+
+    <section class="explanation-section">
+      <div class="container">
+        <div class="explanation-content">
+          <h2 class="explanation-title">How Our Donation System Works</h2>
+          <p class="explanation-text">
+            Every round, our community votes to determine which charity receives the accumulated funds from our PumpFun trading fees.
+            The process is completely transparent and automated, ensuring that 100% of designated funds reach the chosen charities.
+          </p>
+          <p class="explanation-text">
+            Rounds run 24/7 with increasing durations: starting at 5 minutes for Round 1, then 10, 20, 30 minutes, and capping at 1 hour.
+            This allows for quick initial engagement while building up to larger donation amounts in longer rounds.
+          </p>
+
+          <div class="process-grid">
+            <div class="process-item">
+              <div class="process-number">1</div>
+              <div class="process-text">Community votes during active round</div>
+            </div>
+            <div class="process-item">
+              <div class="process-number">2</div>
+              <div class="process-text">Winner determined when timer ends</div>
+            </div>
+            <div class="process-item">
+              <div class="process-number">3</div>
+              <div class="process-text">Funds transferred to charity</div>
+            </div>
+            <div class="process-item">
+              <div class="process-number">4</div>
+              <div class="process-text">Proof posted and verified</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-summary">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">$0</div>
+            <div class="stat-label">Total Donated</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Donations Made</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Charities Supported</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Total Votes Cast</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="donations-section">
+      <div class="container">
+        <h2 class="section-title">Donation History</h2>
+
+        <div class="filters">
+          <button class="filter-btn active" onclick="filterDonations('all')">All Time</button>
+          <button class="filter-btn" onclick="filterDonations('week')">This Week</button>
+          <button class="filter-btn" onclick="filterDonations('month')">This Month</button>
+          <button class="filter-btn" onclick="filterDonations('large')">Large Donations</button>
+        </div>
+
+        <div class="donations-list" id="donationsList">
+          <!-- Donations will be loaded here dynamically -->
+        </div>
+
+        <div class="load-more">
+          <button class="load-more-btn" onclick="loadMore()">Load More Donations</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>International Day of Charity - Democratizing charitable giving through blockchain</p>
+      <p style="margin-top: 8px; font-size: 14px;">All donations are transparent and verifiable</p>
+    </div>
+  </footer>
+<script src="donations-data.js"></script>
+
+</body>
+</html>

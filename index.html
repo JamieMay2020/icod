@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Day of Charity</title>
+    <style>
+:root{
+  /* Metallic silver palette */
+  --silver-100:#f2f4f6;
+  --silver-200:#e3e7eb;
+  --silver-300:#cfd6dc;
+  --silver-400:#b7c0c8;
+  --silver-500:#9aa5b1;
+  --silver-600:#7c8794;
+  --silver-700:#616b75;
+  --silver-800:#4c5560;
+  --silver-900:#3b434c;
+
+  /* Base ink on dark */
+  --ink:#eef1f4;
+  --muted:#b8c0ca;
+
+  /* Lines / outlines */
+  --line:#3d4550;
+
+  /* Metallic gradients */
+  --silver-grad: linear-gradient(135deg, #bfc7cf 0%, #eef1f4 50%, #9aa5b1 100%);
+  --steel-grad: linear-gradient(180deg, #1b2330 0%, #0f1520 100%);
+
+  /* Accents (cool cyan glow to complement silver) */
+  --glow: rgba(120, 205, 255, .25);
+  --glow-strong: rgba(120, 205, 255, .45);
+
+  /* Cards */
+  --card: rgba(18, 22, 32, .85);
+
+  /* Radii & shadows */
+  --radius: 14px;
+  --ring: 0 1px 0 rgba(255,255,255,.03), 0 10px 30px rgba(0,0,0,.35);
+}
+
+/* Reset & Base */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height:1.6;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 600px at 70% -10%, rgba(120,205,255,.06) 0%, rgba(120,205,255,0) 60%),
+    linear-gradient(145deg, #0e1218 0%, #121826 35%, #0a0f19 70%, #0d1119 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* Animations */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* Header / Nav */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(14,18,24,.72);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 2px 20px rgba(0,0,0,.35);
+}
+
+nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 0;position:relative;gap:16px
+}
+
+.logo{
+  font-size:24px;font-weight:800;color:var(--ink);text-decoration:none;
+  display:flex;align-items:center;gap:12px;letter-spacing:.2px;
+  transition:transform .3s ease
+}
+.logo:hover{transform:translateX(4px)}
+.logo img{width:40px;height:40px;animation:float 3s ease-in-out infinite}
+
+.nav-left,.nav-right{display:flex;align-items:center;gap:32px;flex:1}
+.nav-right{justify-content:flex-end}
+
+.nav-links{display:flex;list-style:none;gap:32px}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-weight:600;position:relative;
+  padding:8px 6px;border-radius:8px;transition:color .2s ease, background .2s ease
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;
+  background:var(--silver-grad);transition:width .25s ease
+}
+.nav-links a:hover{color:#eaf2ff;background:rgba(120,205,255,.06)}
+.nav-links a:hover::after{width:100%}
+
+/* Timer */
+.timer-container{
+  position:absolute;left:50%;transform:translateX(-50%);
+  background: rgba(20, 26, 36, .85);
+  border:1px solid var(--silver-700);
+  padding:10px 28px;border-radius:999px;
+  font-weight:800;font-size:18px;color:#f6f8fb;min-width:220px;text-align:center;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 6px 22px rgba(0,0,0,.35);
+}
+.timer-container.warning{background:rgba(40,40,10,.6);border-color:#8b8b56;color:#f1f1cf}
+.timer-container.urgent{background:rgba(48,16,16,.65);border-color:#a26a6a;color:#ffecec}
+
+/* Hero */
+.hero{
+  padding:140px 0 80px;background:transparent;text-align:center;border-bottom:1px solid var(--line);
+  position:relative;overflow:hidden
+}
+.hero::before{
+  content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background: radial-gradient(600px 300px at 60% 40%, rgba(120,205,255,.08), transparent 60%);
+  animation: float 20s ease-in-out infinite;
+  pointer-events: none;
+}
+.hero h1{
+  font-size:52px;font-weight:900;color:#f6f8fb;margin-bottom:16px;line-height:1.2;
+  animation:slideIn .6s ease;position:relative
+}
+.hero h1::after{
+  content:"";position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+  width:120px;height:2px;background:var(--silver-grad);border-radius:2px
+}
+.hero-subtitle{
+  font-size:20px;color:var(--muted);margin:0 auto 32px;max-width:640px;animation:slideIn .8s ease
+}
+.hero-image{
+  width:180px;height:180px;margin:0 auto 40px;position:relative;animation:float 4s ease-in-out infinite
+}
+.hero-image img{
+  width:100%;height:100%;object-fit:cover;
+  filter: drop-shadow(0 10px 30px rgba(120,205,255,.25)) drop-shadow(0 6px 14px rgba(0,0,0,.55));
+}
+
+/* Buttons */
+.btn{
+  display:inline-block;padding:14px 36px;border-radius:30px;border:1px solid var(--silver-600);
+  cursor:pointer;font-weight:800;font-size:16px;color:#0e141c;text-decoration:none;
+  background: var(--silver-grad);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 10px 28px rgba(120,205,255,.12), 0 1px 0 rgba(255,255,255,.1);
+  transition: transform .12s ease, box-shadow .2s ease, filter .2s ease, border-color .2s ease;
+  position: relative;
+  z-index: 1;
+}
+.btn:hover{transform:translateY(-1px);filter:saturate(1.06);box-shadow: 0 14px 36px var(--glow-strong)}
+.btn:active{transform:translateY(0)}
+.btn-secondary{
+  background:transparent;color:var(--ink);border:1px solid var(--silver-500);
+  box-shadow:0 6px 18px rgba(0,0,0,.35)
+}
+.btn-secondary:hover{background:rgba(255,255,255,.06)}
+
+/* Section Titles */
+.section-title{
+  font-size:40px;font-weight:900;color:#eef3f9;text-align:center;margin-bottom:60px;position:relative;animation:slideIn .5s ease
+}
+.section-title::after{
+  content:"";position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);
+  width:60px;height:3px;background:var(--silver-grad);border-radius:2px
+}
+
+/* How It Works */
+.how-it-works{padding:100px 0;background:transparent;position:relative}
+.steps-grid{
+  display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+  gap:50px;max-width:1000px;margin:0 auto
+}
+.step{
+  text-align:center;padding:30px;border-radius:12px;background:var(--card);
+  border:1px solid var(--line);transition:all .3s ease;animation:slideIn .6s ease backwards;
+  box-shadow: var(--ring)
+}
+.step:hover{transform:translateY(-8px);box-shadow:0 18px 42px var(--glow);border-color:var(--silver-500)}
+.step-number{
+  display:inline-grid;place-items:center;width:60px;height:60px;border-radius:50%;margin-bottom:20px;
+  font-size:22px;font-weight:900;color:#0f131b;
+  background: var(--silver-grad);
+  border:1px solid var(--silver-700);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6)
+}
+.step h3{font-size:20px;margin-bottom:12px;color:#e7edf6}
+.step p{color:var(--muted);line-height:1.6}
+
+/* ===========================
+   Voting
+   =========================== */
+.voting-section{
+  padding:100px 0;
+  background: linear-gradient(180deg, rgba(10,15,25,1) 0%, rgba(16,22,33,1) 60%, rgba(12,16,25,1) 100%);
+  position:relative
+}
+.round-info{
+  text-align:center;margin-bottom:50px;padding:24px;background:rgba(16,22,33,.7);
+  max-width:420px;margin-left:auto;margin-right:auto;border-radius:15px;box-shadow:var(--ring);
+  border:1px solid var(--silver-700)
+}
+.round-number{
+  font-size:14px;color:var(--silver-400);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;font-weight:700
+}
+.round-status{
+  font-size:26px;font-weight:800;color:#eef3f9;position:relative;display:inline-flex;align-items:center;gap:10px
+}
+.round-status::before{
+  content:"";width:10px;height:10px;border-radius:50%;
+  background: radial-gradient(circle at 50% 50%, #8ff0ff 0%, #38bdf8 60%, #0ea5e9 100%);
+  box-shadow: 0 0 12px rgba(56,189,248,.6);
+}
+
+.charity-grid{
+  display:grid;grid-template-columns:repeat(auto-fit, minmax(320px,1fr));
+  gap:24px;max-width:1200px;margin:0 auto
+}
+.charity-card{
+  background: rgba(14,20,30,.8);
+  border:1px solid var(--silver-700);
+  border-radius:15px;padding:26px;transition:all .25s ease;position:relative;overflow:hidden;
+  box-shadow: var(--ring);
+}
+.charity-card::before{
+  content:"";position:absolute;inset:-1px;border-radius:14px;
+  background: radial-gradient(200px 140px at 110% -10%, rgba(120,205,255,.12), transparent 60%),
+              radial-gradient(200px 140px at -10% 110%, rgba(120,205,255,.08), transparent 60%);
+  pointer-events:none
+}
+.charity-card:hover{transform:translateY(-4px);box-shadow:0 22px 44px var(--glow-strong);border-color:var(--silver-500)}
+.charity-card.voted{
+  border:2px solid var(--silver-300);
+  box-shadow: 0 0 0 6px rgba(192, 210, 224, .12), var(--ring);
+  background: linear-gradient(135deg, rgba(16,22,33,.95) 0%, rgba(20,28,40,.9) 100%);
+}
+.charity-card.voted::after{
+  content:'VOTED';position:absolute;top:14px;right:14px;padding:4px 10px;
+  background: var(--silver-grad);color:#0e141c;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.08em
+}
+
+.charity-name{font-size:22px;font-weight:800;color:#eef3f9;margin-bottom:10px}
+.charity-description{color:var(--muted);margin-bottom:14px;font-size:15px;line-height:1.6}
+.charity-region{
+  display:inline-block;color:#d9e2ee;font-size:12px;font-weight:700;margin-bottom:16px;padding:5px 12px;
+  background: rgba(120,205,255,.08);border:1px solid var(--silver-700);border-radius:999px
+}
+
+.vote-progress{margin-bottom:18px}
+.progress-bar{
+  width:100%;height:10px;background:#131a25;border-radius:999px;overflow:hidden;margin-bottom:10px;
+  border:1px solid var(--silver-800)
+}
+.progress-fill{
+  height:100%;background: var(--silver-grad);transition:width .5s ease;position:relative;overflow:hidden
+}
+.progress-fill::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+  animation: shimmer 2s ease infinite
+}
+
+.vote-stats{
+  display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:16px
+}
+.vote-count{font-weight:800;color:#e6ecf5}
+
+.vote-btn{
+  width:100%;padding:12px;background:linear-gradient(180deg, #0f1623 0%, #0b111c 100%);
+  color:#eaf2ff;border:1px solid var(--silver-700);border-radius:12px;font-weight:800;cursor:pointer;
+  transition:all .25s ease;font-size:16px;position:relative;overflow:hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 10px 26px rgba(0,0,0,.35)
+}
+.vote-btn::before{
+  content:"";position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;
+  background: rgba(120,205,255,.18);transform:translate(-50%,-50%);transition:width .5s ease, height .5s ease
+}
+.vote-btn:hover:not(:disabled){transform:translateY(-2px);border-color:var(--silver-500);box-shadow:0 16px 36px var(--glow-strong)}
+.vote-btn:hover:not(:disabled)::before{width:320px;height:320px}
+.vote-btn:disabled{background:#19202c;color:#8b95a3;cursor:not-allowed;border-color:#2a3340}
+
+/* Links inside cards */
+.charity-link{
+  display:inline-block;margin-top:12px;color:#cfe9ff;text-decoration:none;font-size:14px;font-weight:700;
+  transition:transform .2s ease, color .2s ease
+}
+.charity-link:hover{color:#e6f4ff;transform:translateX(4px)}
+.charity-link::after{content:' →'}
+
+/* ===========================
+   Stats
+   =========================== */
+.stats-section{
+  padding:80px 0;background:transparent;border-top:1px solid var(--line);position:relative
+}
+.stats-grid{
+  display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:28px;text-align:center
+}
+.stat{
+  padding:24px;background:rgba(16,22,33,.7);border-radius:15px;border:1px solid var(--silver-700);
+  transition:all .3s ease;animation:slideIn .5s ease backwards;box-shadow:var(--ring)
+}
+.stat:nth-child(1){animation-delay:.1s}.stat:nth-child(2){animation-delay:.2s}.stat:nth-child(3){animation-delay:.3s}.stat:nth-child(4){animation-delay:.4s}
+.stat:hover{transform:translateY(-5px);box-shadow:0 18px 34px var(--glow);border-color:var(--silver-500)}
+.stat-number{font-size:38px;font-weight:900;background:var(--silver-grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:8px}
+.stat-label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:1px}
+
+/* ===========================
+   FAQ
+   =========================== */
+.faq-section{
+  padding:100px 0;
+  background: linear-gradient(180deg, rgba(14,20,30,1) 0%, rgba(12,18,28,1) 100%);
+}
+.faq-container{max-width:800px;margin:0 auto}
+.faq-item{
+  background:rgba(16,22,33,.75);border:1px solid var(--silver-700);border-radius:15px;margin-bottom:16px;overflow:hidden;
+  transition:all .3s ease;animation:slideIn .5s ease backwards;box-shadow:var(--ring)
+}
+.faq-item:hover{border-color:var(--silver-500);box-shadow:0 14px 30px var(--glow)}
+.faq-question{
+  padding:22px 24px;cursor:pointer;font-weight:800;color:#e9eef6;display:flex;justify-content:space-between;align-items:center;
+  transition:all .3s ease;font-size:17px
+}
+.faq-question:hover{color:#ffffff}
+.faq-toggle{font-size:28px;color:var(--silver-400);transition:transform .3s ease;font-weight:400}
+.faq-answer{
+  padding:0 24px;max-height:0;overflow:hidden;transition:max-height .4s ease, padding .3s ease;color:var(--muted);line-height:1.8
+}
+.faq-item.active{background:linear-gradient(135deg, rgba(16,22,33,.9) 0%, rgba(20,28,40,.9) 100%)}
+.faq-item.active .faq-answer{padding:0 24px 22px;max-height:500px}
+.faq-item.active .faq-toggle{transform:rotate(45deg)}
+
+/* ===========================
+   Footer
+   =========================== */
+footer{
+  padding:50px 0;background:#0b1018;text-align:center;color:#e5ebf2;position:relative;overflow:hidden;border-top:1px solid var(--line)
+}
+footer::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--silver-grad);
+  background-size:200% 100%;animation:shimmer 3s ease infinite
+}
+footer p{margin-bottom:10px;opacity:.9}
+footer p:last-child{font-size:14px;opacity:.75}
+
+/* ===========================
+   Winner Overlay
+   =========================== */
+.voting-closed-overlay{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.9);
+  background:#0f1520;padding:42px;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.55);
+  z-index:2000;text-align:center;display:none;opacity:0;transition:all .3s ease;border:1px solid var(--silver-600);
+  color:#eaf0f7
+}
+.voting-closed-overlay.active{display:block;opacity:1;transform:translate(-50%,-50%) scale(1)}
+.winner-announcement{font-size:26px;font-weight:900;color:#f1f6fc;margin-bottom:14px}
+.winner-announcement span{background:var(--silver-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.next-round-info{color:var(--muted);margin-bottom:22px;font-size:16px}
+.next-round-info span{font-weight:900;color:#e7edf6}
+
+/* ===========================
+   Mobile
+   =========================== */
+@media (max-width:768px){
+  .nav-left,.nav-right{display:none}
+  .timer-container{font-size:15px;padding:8px 18px;min-width:180px}
+  .hero{padding-top:120px}
+  .hero h1{font-size:36px}
+  .charity-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .step{padding:22px}
+  .section-title{font-size:32px}
+}
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a class="logo">
+                <img src="coin.png" alt="IDC Logo">
+                IDOC
+            </a>
+            
+            <div class="timer-container" id="mainTimer">
+                Next Donation: 00:00
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="past-donations.html">Past Donations</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-image">
+                    <img src="coin.png" alt="International Day of Charity">
+                </div>
+                <h1>International Day of Charity</h1>
+                <p class="hero-subtitle">
+                    Today is the International Day of Charity. 100% of fees will be donated, with transparency. Click below to cast your vote.
+                </p>
+                <a href="#vote" class="btn">Start Voting</a>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <div class="container">
+                <h2 class="section-title">How It Works</h2>
+                <div class="steps-grid">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Review Charities</h3>
+                        <p>Each round features 5 verified charities from our rotating pool.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Cast Your Vote</h3>
+                        <p>One anonymous vote per person per round. No sign-up required.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Watch Live Results</h3>
+                        <p>See votes update in real-time as the community decides.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Donation Happens</h3>
+                        <p>When the timer ends, funds go directly to the winning charity.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="voting-section" id="vote">
+            <div class="container">
+                <div class="round-info">
+                    <div class="round-number">Round 1</div>
+                    <div class="round-status">Voting Open</div>
+                </div>
+                
+                <h2 class="section-title">Vote Now</h2>
+                
+                <div class="charity-grid" id="charityGrid">
+                    <!-- Charity cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-number" id="totalDonated">$0</div>
+                        <div class="stat-label">Total Donated</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="roundsCompleted">0</div>
+                        <div class="stat-label">Rounds Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="totalVotes">0</div>
+                        <div class="stat-label">Total Votes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="activeVoters">0</div>
+                        <div class="stat-label">Active Voters</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section" id="faq">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How does the voting system work?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Each round, you can vote for one charity from the five presented options. Voting is completely anonymous - no sign-up or wallet connection required. When the timer reaches zero, the charity with the most votes receives the donation.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How are charities selected for each round?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            We maintain a pool of 10 verified charities. Each round displays 5 charities. The winner automatically stays in the next round, while the 3 charities with the least votes are rotated out and replaced with others from the pool.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How long does each round last?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Round durations increase progressively: 5 minutes, 10 minutes, 20 minutes, 30 minutes, then cap at 1 hour. This allows for quick initial rounds while giving more time for larger donations in later rounds.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Where do the funds come from?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            All donations come from the fees generated by trading our token on PumpFun. 100% of these fees go directly to the winning charities - we don't take any cut.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How can I verify the donations?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Every donation is documented on our Past Donations page with links to transaction proofs and public announcements. We maintain complete transparency about where every dollar goes.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I vote multiple times?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            You can vote once per round. Our system tracks anonymous voting to ensure fairness while protecting your privacy. Once a new round starts, you can vote again.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>International Day of Charity - Democratizing charitable giving through blockchain</p>
+            <p>All donations are transparent and verifiable</p>
+        </div>
+    </footer>
+
+    <div class="voting-closed-overlay" id="votingClosed">
+        <div class="winner-announcement">Winner: <span id="winnerName"></span></div>
+        <div class="next-round-info">Next round starts in <span id="nextRoundCountdown">30</span> seconds</div>
+        <button class="btn" onclick="closeWinnerOverlay()">Close</button>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Your JavaScript files -->
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
